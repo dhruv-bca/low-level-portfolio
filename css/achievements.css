@@ -1,0 +1,815 @@
+/* ==========================================================================
+   VESTOR INNOVATORS — ACHIEVEMENTS & SCOREBOARD STYLES (low/css/achievements.css)
+   Flowing SVG Circuits, Numero Uno Trophy, 3D Scoreboard & 3D Perspective Room
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+/* --------------------------------------------------------------------------
+   1. Achievements Header & Intro
+   -------------------------------------------------------------------------- */
+.achievements-intro-section {
+  padding-top: calc(var(--nav-height) + 40px);
+  padding-bottom: 40px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.achievements-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(249, 189, 24, 0.1);
+  border: 1px solid rgba(249, 189, 24, 0.3);
+  color: var(--accent-gold);
+  padding: 6px 18px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.achievements-intro-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.achievements-intro-desc {
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   2. 3D Tablet & Flowing SVG Circuits Section
+   -------------------------------------------------------------------------- */
+.flowing-circuits-section {
+  position: relative;
+  min-height: 2200px;
+  padding: 40px 0;
+  overflow: hidden;
+}
+
+.circuit-viewport {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 740px;
+  height: 2000px;
+  margin: 0 auto;
+}
+
+/* 3D World Tablet Backdrop */
+#world3d {
+  position: fixed;
+  top: var(--tabletVerticaloffset, 0px);
+  z-index: 1;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  width: 90vw;
+  max-width: 1100px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+#tablet {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-origin: 0% 50%;
+  transform: rotateY(18deg);
+  -webkit-transform: rotateY(18deg);
+  position: relative;
+  width: 100%;
+  height: 130vh;
+  padding: 40px;
+  padding-left: 120px;
+  background: linear-gradient(109.61deg, rgba(35, 42, 60, 0.4) 4.26%, rgba(13, 17, 26, 0.7) 84.84%);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0.4;
+  transition: opacity var(--transition-smooth);
+}
+
+[data-theme="light"] #tablet {
+  background: linear-gradient(109.61deg, rgba(220, 230, 245, 0.6) 4.26%, rgba(240, 245, 255, 0.8) 84.84%);
+  border-color: rgba(0, 0, 0, 0.1);
+  opacity: 0.55;
+}
+
+/* Flowing Multi-colored SVG Circuit Lines */
+#svgPaths {
+  position: absolute;
+  top: 75px;
+  z-index: 5;
+  width: 740px;
+  max-width: 100%;
+  height: 2000px;
+  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.35));
+  pointer-events: none;
+}
+
+#svgPaths use {
+  fill: none;
+  stroke: url(#cl1);
+  stroke-linecap: round;
+  stroke-width: var(--dot, 20px);
+  stroke-dashoffset: var(--strokeDashoffset, 0);
+  transition: stroke 0.3s ease;
+}
+
+#svgPaths use[href="#linePath01"] {
+  --dot: 20px; --gap: 50px;
+  stroke-dasharray: var(--dot) var(--gap) 120px var(--gap) var(--dot) var(--gap) 300px var(--gap) var(--dot) var(--gap) 150px var(--gap) var(--dot) 20000px;
+}
+#svgPaths use[href="#linePath02"] {
+  --dot: 30px; --gap: 60px;
+  stroke-dasharray: var(--dot) var(--gap) 120px var(--gap) var(--dot) var(--gap) 300px var(--gap) var(--dot) var(--gap) 150px var(--gap) var(--dot) 20000px;
+}
+#svgPaths use[href="#linePath03"] {
+  --dot: 24px; --gap: 40px;
+  stroke-dasharray: var(--dot) var(--gap) 120px var(--gap) var(--dot) var(--gap) 250px var(--gap) var(--dot) var(--gap) 150px var(--gap) var(--dot) 20000px;
+}
+#svgPaths use[href="#linePath04"] {
+  --dot: 36px; --gap: 70px;
+  stroke-dasharray: var(--dot) var(--gap) 100px var(--gap) var(--dot) var(--gap) 200px var(--gap) var(--dot) 20000px;
+}
+
+/* Cards Wrapper */
+.cards-container {
+  display: block;
+  width: 320px;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+
+@media (min-width: 576px) {
+  .cards-container {
+    transform: translateX(4vw);
+  }
+}
+
+.cardWrapper {
+  display: block;
+  position: relative;
+  width: 320px;
+  min-height: 460px;
+  border-radius: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  overflow: clip;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 576px) {
+  .cardWrapper:nth-child(odd) { transform: translateX(5vw); }
+  .cardWrapper:nth-child(even) { transform: translateX(-4vw); }
+}
+
+.cardWrapper::before {
+  position: absolute;
+  content: "";
+  display: block;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cardWrapper::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  display: block;
+  border-radius: 20px;
+  border: 1px solid var(--border-active);
+  pointer-events: none;
+}
+
+.circuit-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 320px;
+  min-height: 460px;
+  border-radius: 20px;
+  background: var(--surface-card);
+  color: var(--text-primary);
+  position: relative;
+  z-index: 2;
+  padding: 24px 20px;
+}
+
+.circuit-card-header {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 14px;
+}
+
+.circuit-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+  background: rgba(249, 189, 24, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.circuit-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.circuit-card-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.circuit-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+  flex: 1;
+}
+
+.circuit-card-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.result-tag {
+  color: var(--accent-emerald);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   3. User's Animated Numero Uno Champion Trophy SVG
+   -------------------------------------------------------------------------- */
+.trophy-icon-wrap {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.numeroUno {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.numeroUno .medalion {
+  transform: scale(0);
+  transform-origin: 51% 81%;
+  animation: oneAnimation 0.5s 0.6s forwards ease;
+}
+
+.numeroUno .glory_rays_rapper {
+  transform: scale(0);
+  animation: scaleRays 0.5s 0.4s forwards ease;
+  transform-origin: 51% 81%;
+}
+
+.numeroUno .left_branch .bottom_leafs .leaf_rapper .leaf,
+.numeroUno .right_branch .bottom_leafs .leaf_rapper .leaf {
+  transform: scale(0) rotate(-50deg);
+  animation: stemAnimation 0.6s 1.1s forwards ease;
+}
+
+.numeroUno .left_branch .stem_rapper,
+.numeroUno .right_branch .stem_rapper {
+  transform-origin: 36% 78%;
+  animation: leftStemRotate 3s 1.9s infinite linear;
+}
+
+.numeroUno .one {
+  transform-origin: 50% 50%;
+  transform: scale(0);
+  animation: oneAnimation 0.8s 0.8s forwards ease;
+  fill: #00d2ff;
+  stroke: #ffffff;
+  stroke-width: 0.5px;
+  filter: drop-shadow(0 2px 8px rgba(0, 210, 255, 0.6));
+  transition: fill var(--transition-smooth), stroke var(--transition-smooth);
+}
+
+[data-theme="light"] .numeroUno .one {
+  fill: #0284c7 !important;
+  stroke: #0f172a !important;
+  stroke-width: 0.8px !important;
+  filter: drop-shadow(0 2px 6px rgba(2, 132, 199, 0.4)) !important;
+}
+
+.numeroUno .sparks {
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: 50% 50%;
+  animation: fadeInSparkRapper 2s 1.7s forwards ease;
+}
+
+.numeroUno .sparks .spark {
+  opacity: 0;
+  animation: fadeInSparks 4s infinite ease;
+}
+
+@keyframes stemAnimation { 100% { transform: scale(1) rotate(0deg); } }
+@keyframes leftLeafRotate { 0%, 100% { transform: rotate(4deg); } 50% { transform: rotate(-4deg); } }
+@keyframes rightLeafRotate { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+@keyframes leftStemRotate { 0%, 100% { transform: rotate(2deg); } 50% { transform: rotate(-2deg); } }
+@keyframes rightStemRotate { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+@keyframes oneAnimation { 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes fadeInSparkRapper { 20% { opacity: 0; } 100% { opacity: 1; transform: scale(1); } }
+@keyframes fadeInSparks { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+@keyframes scaleRays { 60% { opacity: 1; } 100% { opacity: 0; transform: scale(1.1); } }
+
+/* 4th Card: Captain's Poem Special Styling */
+.captain-poem-card {
+  background: linear-gradient(135deg, rgba(19, 24, 38, 0.95), rgba(7, 9, 14, 0.95));
+  border: 1px solid rgba(249, 189, 24, 0.3);
+}
+
+.captain-poem-card .poem-text {
+  font-family: var(--font-code);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: #e2e8f0;
+  font-style: italic;
+  padding: 10px 0;
+}
+
+.captain-poem-card .poem-author {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+  margin-top: 8px;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   4. 3D Isometric Scoreboard (Podium Ranking)
+   -------------------------------------------------------------------------- */
+.scoreboard-section {
+  padding: 120px 0 160px;
+  position: relative;
+  z-index: 10;
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.04) 0%, transparent 70%);
+}
+
+.stage-viewport {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 900px;
+  transform-style: preserve-3d;
+  margin-top: 40px;
+}
+
+.stage {
+  margin-top: 60px;
+  width: 100%;
+  max-width: 680px;
+  height: 240px;
+  background: linear-gradient(to bottom, #1a202c, #2d3748);
+  transform: rotateX(80deg);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 24px;
+  border-bottom: 2px solid #000;
+  transform-style: preserve-3d;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .stage {
+  background: linear-gradient(to bottom, #cbd5e1, #94a3b8);
+}
+
+.stage-front {
+  position: absolute;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to bottom, #2d3748, #0f172a);
+  transform-origin: top;
+  top: 100%;
+  transform: rotateX(-80deg);
+  display: grid;
+  place-content: center;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tower {
+  width: 130px;
+  aspect-ratio: 1;
+  position: relative;
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.6);
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.tower:hover .player {
+  transform: rotateX(-88deg) translateY(-2.2rem) scale(1.15);
+}
+
+.tower > .face {
+  position: absolute;
+  width: inherit;
+  background: inherit;
+  bottom: 0;
+}
+
+.tower > .top {
+  aspect-ratio: inherit;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+}
+
+.tower > .top > .player {
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotateX(-88deg) translateY(-1.6rem);
+  transition: 250ms ease all;
+  white-space: nowrap;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.tower > .left {
+  transform-origin: left;
+  left: 0;
+  width: 140px;
+  height: 130px;
+  transform: rotateY(-90deg);
+}
+
+.tower > .right {
+  transform-origin: right;
+  right: 0;
+  height: 130px;
+  width: 100px;
+  transform: rotateY(90deg);
+}
+
+.tower > .front {
+  transform-origin: bottom;
+  transform: rotateX(90deg) translateY(100%);
+}
+
+/* 1st Place Tower: Vestor Innovators */
+.tower.first {
+  transform: translateZ(0px);
+  background: linear-gradient(to top, #059669, #10b981);
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.5);
+}
+
+.tower.first > .top {
+  transform: translateZ(190px);
+  background: radial-gradient(#6ee7b7, #10b981);
+}
+
+.tower.first > .front {
+  height: 190px;
+  background: linear-gradient(to top, #047857, #10b981);
+}
+
+/* 2nd Place Tower: Vestor Achievers */
+.tower.second {
+  transform: translateZ(0px);
+  background: linear-gradient(to top, #d97706, #f59e0b);
+}
+
+.tower.second > .top {
+  transform: translateZ(140px);
+  background: radial-gradient(#fcd34d, #f59e0b);
+}
+
+.tower.second > .left {
+  background: linear-gradient(to left, #d97706, #f59e0b);
+}
+
+.tower.second > .front {
+  height: 140px;
+  background: linear-gradient(to top, #b45309, #f59e0b);
+}
+
+/* 3rd Place Tower: Vestor Igniters */
+.tower.third {
+  transform: translateZ(0px);
+  background: linear-gradient(to top, #dc2626, #ef4444);
+}
+
+.tower.third > .top {
+  transform: translateZ(100px);
+  background: radial-gradient(#fca5a5, #ef4444);
+}
+
+.tower.third > .right {
+  background: linear-gradient(to right, #dc2626, #ef4444);
+}
+
+.tower.third > .front {
+  height: 100px;
+  background: linear-gradient(to top, #b91c1c, #ef4444);
+}
+
+/* --------------------------------------------------------------------------
+   5. 3D Perspective Cube Room Section (Kipling's Creed Horizon)
+   -------------------------------------------------------------------------- */
+.room-container-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 100px 0 140px;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+  z-index: 25;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.room-container-wrapper .content {
+  border-radius: 40px;
+  width: 1000px;
+  height: 562px;
+  position: relative;
+  overflow: hidden;
+  animation: 200s linear infinite brightness;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 210, 255, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.room-container-wrapper .container-full {
+  width: 1000px;
+  height: 562px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1);
+  animation: 200s linear infinite zoom-in;
+  overflow: hidden;
+  position: relative;
+}
+
+.room-container-wrapper .backgroundImage {
+  position: absolute;
+  width: 1000px;
+  height: 562px;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+}
+
+.room-container-wrapper .boyImage {
+  position: absolute;
+  width: 1000px;
+  height: 520px;
+  object-fit: contain;
+  object-position: center bottom;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95));
+}
+
+.room-container-wrapper .cube,
+.room-container-wrapper .face {
+  width: 870px;
+  height: 190px;
+}
+
+.room-container-wrapper .cube {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 480px;
+  perspective-origin: 51% 70%;
+}
+
+.room-container-wrapper .face,
+.room-container-wrapper .hue {
+  position: absolute;
+}
+
+.room-container-wrapper .face {
+  background: 0 0;
+  border: 0 solid #000;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.room-container-wrapper .bottom,
+.room-container-wrapper .top {
+  width: 870px;
+  height: 870px;
+}
+
+.room-container-wrapper p {
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-size: calc(6em + (190px / 10) * 0.7);
+  padding-top: 20px;
+  color: #fff;
+  margin: 0;
+  line-height: 1;
+}
+
+.room-container-wrapper span {
+  color: #ef4444;
+}
+
+.room-container-wrapper .front {
+  transform: translateZ(435px);
+  display: none;
+}
+
+.room-container-wrapper .back {
+  transform: translateZ(-435px) rotateY(180deg) scaleX(-1);
+}
+
+.room-container-wrapper .left {
+  transform: translateX(-435px) rotateY(-90deg) scaleX(-1);
+}
+
+.room-container-wrapper .right {
+  transform: translateX(435px) rotateY(90deg) scaleX(-1);
+}
+
+.room-container-wrapper .top {
+  transform: translateY(-435px) rotateX(90deg) scaleY(-1);
+}
+
+.room-container-wrapper .bottom {
+  transform: translateY(-245px) rotateX(-90deg) scaleY(-1);
+}
+
+.room-container-wrapper .left p {
+  margin-left: 480px;
+  animation: 200s linear infinite left;
+}
+
+.room-container-wrapper .back p {
+  margin-left: -390px;
+  animation: 200s linear infinite back;
+}
+
+.room-container-wrapper .right p {
+  margin-left: -1260px;
+  animation: 200s linear infinite right;
+}
+
+@keyframes left {
+  100% { margin-left: -54000px; }
+}
+
+@keyframes back {
+  100% { margin-left: -54870px; }
+}
+
+@keyframes right {
+  100% { margin-left: -55740px; }
+}
+
+.room-container-wrapper .hue {
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: overlay;
+  background: radial-gradient(ellipse at center, #1e5799 0%, #7db9e8 100%);
+  opacity: 1;
+}
+
+.room-container-wrapper .hue.animated {
+  animation: 8s infinite filter-animation;
+}
+
+.room-container-wrapper .container-reflect {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 380px;
+  filter: blur(10px);
+}
+
+.room-container-wrapper .container-reflect .cube {
+  perspective-origin: 51% -30%;
+}
+
+.room-container-wrapper .container-reflect .back {
+  transform: translateZ(-435px) rotateY(180deg) scaleX(-1) scaleY(-1);
+}
+
+.room-container-wrapper .container-reflect .left {
+  transform: translateX(-435px) rotateY(-90deg) scaleX(-1) scaleY(-1);
+}
+
+.room-container-wrapper .container-reflect .right {
+  transform: translateX(435px) rotateY(90deg) scaleX(-1) scaleY(-1);
+}
+
+.room-container-wrapper .container-reflect p {
+  transform: scaleY(70%);
+}
+
+@keyframes filter-animation {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(100deg); }
+}
+
+@keyframes zoom-in {
+  0% { transform: scale(1); }
+  100% { transform: scale(2.5); }
+}
+
+@keyframes blur {
+  0% { filter: blur(0px); }
+  100% { filter: blur(3px); }
+}
+
+@keyframes brightness {
+  0% { filter: brightness(1) contrast(1); }
+  100% { filter: brightness(0.8) contrast(1.3); }
+}
+
+@media (max-width: 768px) {
+  .stage {
+    width: 95%;
+    transform: rotateX(75deg);
+  }
+  .tower {
+    width: 90px;
+  }
+  .tower > .top > .player {
+    font-size: 0.82rem;
+  }
+  .circuit-viewport {
+    height: 2200px;
+  }
+  .cardWrapper {
+    width: 290px;
+  }
+  .circuit-card {
+    width: 290px;
+  }
+}

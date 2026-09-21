@@ -1,0 +1,555 @@
+/* ==========================================================================
+   VESTOR INNOVATORS — MEMBERS PAGE STYLES (low/css/members.css)
+   Bato Text-Drop Animation, Live Search Filter, 17 Solid Flowing Member Cards
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Bato Text-Drop Hero Section
+   -------------------------------------------------------------------------- */
+.members-start-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  height: 90vh;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.members-start-section::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  right: 20%;
+  z-index: 0;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-cyan) 0%, rgba(0, 210, 255, 0.4) 60%, transparent 100%);
+  filter: blur(140px);
+  pointer-events: none;
+}
+
+.start__box {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 680px;
+  text-align: center;
+}
+
+.start__logo {
+  display: block;
+  width: 84px;
+  height: 84px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid var(--border-active);
+  box-shadow: 0 10px 30px var(--accent-cyan-glow);
+  margin-bottom: 24px;
+}
+
+.start__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.start__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+}
+
+.start__text {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 520px;
+}
+
+.scroll-marker {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-cyan);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: markerBounce 2s ease infinite;
+}
+
+@keyframes markerBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+
+/* Text Drop Container */
+.text-drop {
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 12rem;
+  perspective: 2000px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.text-drop::after {
+  content: "";
+  position: absolute;
+  top: 40%;
+  left: 5%;
+  z-index: 0;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
+  filter: blur(140px);
+  pointer-events: none;
+}
+
+.text-drop__line {
+  display: block;
+  text-align: center;
+  width: 100%;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 7vw, 6rem);
+  line-height: 1.25;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  transform-origin: 50% 0;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: rotateX(-120deg);
+  position: relative;
+  z-index: 3;
+}
+
+.text-drop__img-box {
+  position: absolute;
+  overflow: hidden;
+  opacity: 0.15;
+  border-radius: var(--border-radius-md);
+  transition: opacity 0.5s;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-subtle);
+  z-index: 1;
+}
+
+.text-drop__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-drop__img-box:nth-child(1) {
+  top: 10%;
+  left: 4%;
+  width: 24vw;
+  max-width: 340px;
+  height: 240px;
+}
+
+.text-drop__img-box:nth-child(2) {
+  top: 28%;
+  right: 6%;
+  width: 26vw;
+  max-width: 360px;
+  height: 260px;
+}
+
+.text-drop__img-box:nth-child(3) {
+  top: 55%;
+  left: 6%;
+  width: 25vw;
+  max-width: 350px;
+  height: 250px;
+}
+
+.text-drop__img-box:nth-child(4) {
+  top: 72%;
+  right: 5%;
+  width: 26vw;
+  max-width: 360px;
+  height: 260px;
+}
+
+@media (max-width: 768px) {
+  .text-drop__img-box {
+    display: none; /* Hide heavy side images on mobile to prevent clutter */
+  }
+  .text-drop {
+    padding: 4rem 0 8rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Live Search Bar
+   -------------------------------------------------------------------------- */
+.members-search-section {
+  padding: 40px 0 20px;
+  position: relative;
+  z-index: 20;
+}
+
+.search-bar-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.search-input-field {
+  width: 100%;
+  padding: 16px 24px 16px 56px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.search-input-field:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 24px var(--accent-cyan-glow);
+}
+
+.search-icon {
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  color: var(--accent-cyan);
+  pointer-events: none;
+}
+
+.search-result-count {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   3. Flowing 17 Solid Member Cards Section & 3D Tablet Backdrop
+   -------------------------------------------------------------------------- */
+#world3d {
+  position: fixed;
+  top: var(--tabletVerticaloffset, 0px);
+  z-index: 1;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  width: 90vw;
+  max-width: 1100px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+#tablet {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-origin: 0% 50%;
+  transform: rotateY(18deg);
+  -webkit-transform: rotateY(18deg);
+  position: relative;
+  width: 100%;
+  height: 140vh;
+  padding: 40px;
+  padding-left: 120px;
+  background: linear-gradient(109.61deg, rgba(35, 42, 60, 0.4) 4.26%, rgba(13, 17, 26, 0.7) 84.84%);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0.35;
+}
+
+[data-theme="light"] #tablet {
+  background: linear-gradient(109.61deg, rgba(220, 230, 245, 0.6) 4.26%, rgba(240, 245, 255, 0.8) 84.84%);
+  border-color: rgba(0, 0, 0, 0.1);
+  opacity: 0.45;
+}
+
+.members-circuits-section {
+  position: relative;
+  width: 100%;
+  padding: 40px 0 160px;
+  overflow: visible;
+}
+
+.members-viewport {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+#svgPaths {
+  position: sticky;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 740px;
+  max-width: 95vw;
+  height: 100vh;
+  margin-bottom: -100vh;
+  filter: drop-shadow(0 0 18px rgba(15, 191, 250, 0.45));
+  pointer-events: none;
+}
+
+#svgPaths use {
+  fill: none;
+  stroke: url(#cl1);
+  stroke-linecap: round;
+  stroke-width: var(--dot, 28px);
+  stroke-dashoffset: var(--strokeDashoffset, 0);
+  transition: stroke 0.3s ease;
+}
+
+#svgPaths use[href="#linePath01"] {
+  --dot: 28px; --gap: 40px;
+  stroke-dasharray: var(--dot) var(--gap) 140px var(--gap) var(--dot) var(--gap) 320px var(--gap) var(--dot) var(--gap) 180px var(--gap) var(--dot) 20000px;
+}
+#svgPaths use[href="#linePath02"] {
+  --dot: 36px; --gap: 50px;
+  stroke-dasharray: var(--dot) var(--gap) 160px var(--gap) var(--dot) var(--gap) 340px var(--gap) var(--dot) var(--gap) 190px var(--gap) var(--dot) 20000px;
+}
+#svgPaths use[href="#linePath03"] {
+  --dot: 30px; --gap: 40px;
+  stroke-dasharray: var(--dot) var(--gap) 130px var(--gap) var(--dot) var(--gap) 280px var(--gap) var(--dot) var(--gap) 160px var(--gap) var(--dot) 20000px;
+}
+#svgPaths use[href="#linePath04"] {
+  --dot: 42px; --gap: 60px;
+  stroke-dasharray: var(--dot) var(--gap) 110px var(--gap) var(--dot) var(--gap) 220px var(--gap) var(--dot) 20000px;
+}
+
+.members-cards-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  padding-bottom: 80px;
+}
+
+.memberCardWrapper {
+  display: block;
+  position: relative;
+  width: 460px;
+  max-width: 90vw;
+  min-height: 520px;
+  border-radius: 24px;
+  margin: 36px 0;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease;
+}
+
+@media (min-width: 992px) {
+  .memberCardWrapper:nth-child(odd) { transform: translateX(120px); }
+  .memberCardWrapper:nth-child(even) { transform: translateX(-120px); }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .memberCardWrapper:nth-child(odd) { transform: translateX(60px); }
+  .memberCardWrapper:nth-child(even) { transform: translateX(-60px); }
+}
+
+@media (max-width: 767px) {
+  .memberCardWrapper {
+    width: calc(100vw - 32px);
+    max-width: 400px;
+    margin: 22px auto;
+    transform: none !important;
+  }
+}
+
+.memberCardWrapper:hover {
+  box-shadow: 0 25px 60px rgba(0, 210, 255, 0.25), 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.memberCardWrapper.hidden {
+  display: none;
+}
+
+/* Frosted Glassmorphic Member Card (Reveals Flowing Circuit Lines Behind) */
+.member-solid-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 520px;
+  background: rgba(14, 18, 30, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  color: #ffffff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.member-solid-card:hover {
+  border-color: rgba(0, 210, 255, 0.6);
+  box-shadow: 0 25px 60px rgba(0, 210, 255, 0.2), 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .member-solid-card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #0f172a;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.member-photo-frame {
+  position: relative;
+  width: 100%;
+  height: 270px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.member-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease;
+}
+
+/* Adjust Captain Chhotu Kumar photo framing to center his face */
+.memberCardWrapper[data-name="Chhotu Kumar"] .member-photo-frame img {
+  object-position: center 16%;
+}
+
+.member-solid-card:hover .member-photo-frame img {
+  transform: scale(1.06);
+}
+
+.member-role-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  background: rgba(7, 9, 14, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-active);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.badge-captain {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background: rgba(249, 189, 24, 0.15);
+}
+
+.badge-creator {
+  border-color: var(--accent-emerald);
+  color: var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.member-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+/* Two Inspiring Intro Lines */
+.member-quote-lines {
+  font-family: var(--font-code);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 14px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent-cyan);
+}
+
+.member-info-header {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 12px;
+}
+
+.member-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.member-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 0.8rem;
+}
+
+.member-detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.detail-value {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .memberCardWrapper {
+    width: 300px;
+  }
+  .member-solid-card {
+    min-height: 460px;
+  }
+  .member-photo-frame {
+    height: 210px;
+  }
+}

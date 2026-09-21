@@ -1,0 +1,7 @@
+/* ==========================================================================
+   VESTOR INNOVATORS — LOW-LEVEL MAIN STYLESHEET ENTRY POINT
+   Imports modular global design system & components
+   ========================================================================== */
+
+@import url('css/main.css');
+@import url('css/home.css');
