@@ -305,15 +305,14 @@
 }
 
 #svgPaths {
-  position: sticky;
+  position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   width: 740px;
   max-width: 95vw;
-  height: 100vh;
-  margin-bottom: -100vh;
+  height: 100%;
   filter: drop-shadow(0 0 18px rgba(15, 191, 250, 0.45));
   pointer-events: none;
 }
@@ -329,19 +328,19 @@
 
 #svgPaths use[href="#linePath01"] {
   --dot: 28px; --gap: 40px;
-  stroke-dasharray: var(--dot) var(--gap) 140px var(--gap) var(--dot) var(--gap) 320px var(--gap) var(--dot) var(--gap) 180px var(--gap) var(--dot) 20000px;
+  stroke-dasharray: var(--dot) var(--gap) 140px var(--gap) var(--dot) var(--gap) 320px var(--gap) var(--dot) var(--gap) 180px var(--gap);
 }
 #svgPaths use[href="#linePath02"] {
   --dot: 36px; --gap: 50px;
-  stroke-dasharray: var(--dot) var(--gap) 160px var(--gap) var(--dot) var(--gap) 340px var(--gap) var(--dot) var(--gap) 190px var(--gap) var(--dot) 20000px;
+  stroke-dasharray: var(--dot) var(--gap) 160px var(--gap) var(--dot) var(--gap) 340px var(--gap) var(--dot) var(--gap) 190px var(--gap);
 }
 #svgPaths use[href="#linePath03"] {
   --dot: 30px; --gap: 40px;
-  stroke-dasharray: var(--dot) var(--gap) 130px var(--gap) var(--dot) var(--gap) 280px var(--gap) var(--dot) var(--gap) 160px var(--gap) var(--dot) 20000px;
+  stroke-dasharray: var(--dot) var(--gap) 130px var(--gap) var(--dot) var(--gap) 280px var(--gap) var(--dot) var(--gap) 160px var(--gap);
 }
 #svgPaths use[href="#linePath04"] {
   --dot: 42px; --gap: 60px;
-  stroke-dasharray: var(--dot) var(--gap) 110px var(--gap) var(--dot) var(--gap) 220px var(--gap) var(--dot) 20000px;
+  stroke-dasharray: var(--dot) var(--gap) 110px var(--gap) var(--dot) var(--gap) 220px var(--gap) var(--dot) 260px var(--gap);
 }
 
 .members-cards-flow {
@@ -445,6 +444,11 @@
 /* Adjust Captain Chhotu Kumar photo framing to center his face */
 .memberCardWrapper[data-name="Chhotu Kumar"] .member-photo-frame img {
   object-position: center 16%;
+}
+
+/* Adjust Priyanshu Kumar photo framing to center his face (avoid JCB roof) */
+.memberCardWrapper[data-name="Priyanshu Kumar"] .member-photo-frame img {
+  object-position: center 30%;
 }
 
 .member-solid-card:hover .member-photo-frame img {
