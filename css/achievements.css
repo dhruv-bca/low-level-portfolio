@@ -568,10 +568,11 @@
    -------------------------------------------------------------------------- */
 .room-container-wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 100px 0 140px;
+  padding: 70px 20px;
   overflow: hidden;
   background: #000;
   position: relative;
@@ -579,35 +580,74 @@
   border-top: 1px solid var(--border-subtle);
 }
 
-.room-container-wrapper .content {
-  border-radius: 40px;
-  width: 1000px;
-  height: 562px;
+@media (max-width: 768px) {
+  .room-container-wrapper {
+    padding: 36px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .room-container-wrapper {
+    padding: 24px 8px;
+  }
+}
+
+/* Outer 16:9 responsive frame that scales symmetrically across all devices */
+.room-scaler-frame {
   position: relative;
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 1000 / 562;
+  border-radius: clamp(14px, 3.5vw, 36px);
   overflow: hidden;
-  animation: 200s linear infinite brightness;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 210, 255, 0.25);
   border: 2px solid rgba(255, 255, 255, 0.15);
-  transition: transform 0.3s ease;
+  background: #000;
+  margin: 0 auto;
+}
+
+/* Inner 1000x562 virtual stage locked against flex shrinking */
+.room-scaler-frame .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000px !important;
+  height: 562px !important;
+  min-width: 1000px !important;
+  min-height: 562px !important;
+  max-width: 1000px !important;
+  max-height: 562px !important;
+  flex-shrink: 0 !important;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  transform-origin: 0 0;
+  transform: scale(var(--room-scale, 1));
+  animation: 200s linear infinite brightness;
+  overflow: hidden;
+  pointer-events: auto;
 }
 
 .room-container-wrapper .container-full {
-  width: 1000px;
-  height: 562px;
+  width: 1000px !important;
+  height: 562px !important;
+  min-width: 1000px !important;
+  min-height: 562px !important;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: scale(1);
-  animation: 200s linear infinite zoom-in;
+  animation: 20s ease-in-out infinite alternate room-drift;
   overflow: hidden;
   position: relative;
 }
 
 .room-container-wrapper .backgroundImage {
   position: absolute;
-  width: 1000px;
-  height: 562px;
+  width: 1000px !important;
+  max-width: none !important;
+  height: 562px !important;
   object-fit: cover;
   top: 0;
   left: 0;
@@ -615,8 +655,9 @@
 
 .room-container-wrapper .boyImage {
   position: absolute;
-  width: 1000px;
-  height: 520px;
+  width: 1000px !important;
+  max-width: none !important;
+  height: 520px !important;
   object-fit: contain;
   object-position: center bottom;
   bottom: 0;
@@ -625,6 +666,37 @@
   z-index: 10;
   pointer-events: none;
   filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95));
+}
+
+.room-container-wrapper .cube-room-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000px !important;
+  max-width: none !important;
+  height: 562px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-container-wrapper .cube-room-reflect,
+.room-container-wrapper .container-reflect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000px !important;
+  max-width: none !important;
+  height: 562px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-top: 380px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: blur(10px);
 }
 
 .room-container-wrapper .cube,
@@ -743,31 +815,27 @@
   animation: 8s infinite filter-animation;
 }
 
-.room-container-wrapper .container-reflect {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 380px;
-  filter: blur(10px);
-}
-
+.room-container-wrapper .cube-room-reflect .cube,
 .room-container-wrapper .container-reflect .cube {
   perspective-origin: 51% -30%;
 }
 
+.room-container-wrapper .cube-room-reflect .back,
 .room-container-wrapper .container-reflect .back {
   transform: translateZ(-435px) rotateY(180deg) scaleX(-1) scaleY(-1);
 }
 
+.room-container-wrapper .cube-room-reflect .left,
 .room-container-wrapper .container-reflect .left {
   transform: translateX(-435px) rotateY(-90deg) scaleX(-1) scaleY(-1);
 }
 
+.room-container-wrapper .cube-room-reflect .right,
 .room-container-wrapper .container-reflect .right {
   transform: translateX(435px) rotateY(90deg) scaleX(-1) scaleY(-1);
 }
 
+.room-container-wrapper .cube-room-reflect p,
 .room-container-wrapper .container-reflect p {
   transform: scaleY(70%);
 }
@@ -777,9 +845,9 @@
   50% { filter: hue-rotate(100deg); }
 }
 
-@keyframes zoom-in {
+@keyframes room-drift {
   0% { transform: scale(1); }
-  100% { transform: scale(2.5); }
+  100% { transform: scale(1.025); }
 }
 
 @keyframes blur {

@@ -129,17 +129,37 @@ function init3DRoom() {
     div.innerHTML = allTimeWinnersText;
   });
 
-  // Responsive scaler for room
-  function adjustContentSize() {
-    const contentDiv = document.querySelector(".room-container-wrapper .content");
-    if (!contentDiv) return;
-    const viewportWidth = window.innerWidth;
-    const baseWidth = 1000;
-    const scaleFactor = viewportWidth < (baseWidth + 40) ? (viewportWidth - 32) / baseWidth : 1;
-    contentDiv.style.transform = `scale(${scaleFactor})`;
-    contentDiv.style.transformOrigin = "center center";
+  // Responsive scaler for 3D room to look identical across desktop and mobile
+  function updateRoomScale() {
+    const frame = document.querySelector(".room-scaler-frame");
+    const content = document.querySelector(".room-scaler-frame .content") || document.querySelector(".room-container-wrapper .content");
+    if (!frame || !content) return;
+
+    const frameRect = frame.getBoundingClientRect();
+    const frameWidth = frameRect.width;
+    if (frameWidth <= 0) return;
+
+    // Fixed internal canvas coordinate system: 1000px x 562px (16:9 widescreen)
+    const scale = frameWidth / 1000;
+
+    content.style.transform = `scale(${scale})`;
+    content.style.transformOrigin = "0 0";
+    document.documentElement.style.setProperty("--room-scale", scale.toString());
   }
 
-  adjustContentSize();
-  window.addEventListener("resize", adjustContentSize);
+  // Initial scaling call
+  updateRoomScale();
+
+  // Watch for window resize and orientation changes
+  window.addEventListener("resize", updateRoomScale, { passive: true });
+  window.addEventListener("orientationchange", () => {
+    setTimeout(updateRoomScale, 80);
+  });
+
+  // ResizeObserver for precise frame dimension tracking
+  const frameEl = document.querySelector(".room-scaler-frame");
+  if (frameEl && window.ResizeObserver) {
+    const ro = new ResizeObserver(() => updateRoomScale());
+    ro.observe(frameEl);
+  }
 }

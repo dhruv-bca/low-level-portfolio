@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTextDropAnimation();
   initMemberSearch();
   initMembersCircuitScroll();
+  initMemberModal();
 });
 
 /* --------------------------------------------------------------------------
@@ -167,3 +168,112 @@ function initMembersCircuitScroll() {
     );
   });
 }
+
+/* --------------------------------------------------------------------------
+   4. Interactive Member Expanded Detail Modal
+   -------------------------------------------------------------------------- */
+function initMemberModal() {
+  const modal = document.getElementById('memberModal');
+  const closeBtn = document.getElementById('modalCloseBtn');
+  const modalImg = document.getElementById('modalMemberImg');
+  const modalBadge = document.getElementById('modalMemberBadge');
+  const modalName = document.getElementById('modalMemberName');
+  const modalQuote = document.getElementById('modalMemberQuote');
+  const modalDegree = document.getElementById('modalMemberDegree');
+  const modalRoll = document.getElementById('modalMemberRoll');
+  const modalSession = document.getElementById('modalMemberSession');
+  const modalDiscipline = document.getElementById('modalMemberDiscipline');
+  const cardWrappers = document.querySelectorAll('.memberCardWrapper');
+
+  if (!modal) return;
+
+  function closeModal() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  cardWrappers.forEach((card) => {
+    card.addEventListener('click', (e) => {
+      // Don't trigger if user was selecting text
+      const selection = window.getSelection();
+      if (selection && selection.toString().length > 0) return;
+
+      const imgEl = card.querySelector('.member-photo-frame img');
+      const badgeEl = card.querySelector('.member-role-badge');
+      const nameEl = card.querySelector('.member-name');
+      const quoteAttr = card.getAttribute('data-quote') || '';
+      const quoteEl = card.querySelector('.member-quote-lines');
+
+      // Detail items
+      const detailItems = card.querySelectorAll('.member-detail-item');
+      let degree = '--', roll = '--', session = '--', discipline = '--';
+
+      detailItems.forEach((item) => {
+        const label = (item.querySelector('.detail-label')?.textContent || '').toLowerCase().trim();
+        const val = item.querySelector('.detail-value')?.textContent || '';
+        if (label.includes('degree')) degree = val;
+        else if (label.includes('roll')) roll = val;
+        else if (label.includes('session')) session = val;
+        else if (label.includes('discipline')) discipline = val;
+      });
+
+      // Fallbacks from data attributes
+      if (degree === '--' && card.hasAttribute('data-course')) degree = card.getAttribute('data-course');
+      if (roll === '--' && card.hasAttribute('data-roll')) roll = card.getAttribute('data-roll');
+
+      // Populate modal
+      if (modalImg && imgEl) {
+        modalImg.src = imgEl.src;
+        modalImg.alt = imgEl.alt || (nameEl ? nameEl.textContent : 'Member portrait');
+      }
+
+      if (modalBadge && badgeEl) {
+        modalBadge.textContent = badgeEl.textContent.trim();
+        modalBadge.className = badgeEl.className;
+      }
+
+      if (modalName && nameEl) {
+        modalName.textContent = nameEl.textContent.trim();
+      }
+
+      if (modalQuote) {
+        if (quoteAttr) {
+          modalQuote.textContent = `“${quoteAttr}”`;
+        } else if (quoteEl) {
+          modalQuote.textContent = quoteEl.textContent.trim();
+        }
+      }
+
+      if (modalDegree) modalDegree.textContent = degree;
+      if (modalRoll) modalRoll.textContent = roll;
+      if (modalSession) modalSession.textContent = session;
+      if (modalDiscipline) modalDiscipline.textContent = discipline;
+
+      // Open Modal
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeModal();
+    });
+  }
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+}
+

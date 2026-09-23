@@ -364,6 +364,7 @@
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
   transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
 }
 
 @media (min-width: 992px) {
@@ -428,7 +429,7 @@
 .member-photo-frame {
   position: relative;
   width: 100%;
-  height: 270px;
+  height: 290px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.25);
 }
@@ -441,14 +442,77 @@
   transition: transform 0.5s ease;
 }
 
-/* Adjust Captain Chhotu Kumar photo framing to center his face */
+/* Custom Face-Centered Alignments for Every Member */
 .memberCardWrapper[data-name="Chhotu Kumar"] .member-photo-frame img {
-  object-position: center 16%;
+  object-position: center 16% !important;
 }
 
-/* Adjust Priyanshu Kumar photo framing to center his face (avoid JCB roof) */
+.memberCardWrapper[data-name="Dhruv Raj"] .member-photo-frame img {
+  object-position: center 20% !important;
+}
+
+.memberCardWrapper[data-name="Abhishek Kumar"] .member-photo-frame img {
+  object-position: center 8% !important;
+}
+
+.memberCardWrapper[data-name="Radha Kumari"] .member-photo-frame img {
+  object-position: center 6% !important;
+}
+
+.memberCardWrapper[data-name="Bijay Kumar"] .member-photo-frame img {
+  object-position: center 6% !important;
+}
+
+.memberCardWrapper[data-name="Divya Kumari"] .member-photo-frame img {
+  object-position: center 12% !important;
+}
+
+.memberCardWrapper[data-name="Gautam Kumar"] .member-photo-frame img {
+  object-position: 50% 20% !important;
+}
+
+.memberCardWrapper[data-name="Indrajeet Soni"] .member-photo-frame img {
+  object-position: 62% 28% !important;
+}
+
+.memberCardWrapper[data-name="Md Aquib Hussain"] .member-photo-frame img {
+  object-position: center 20% !important;
+}
+
 .memberCardWrapper[data-name="Priyanshu Kumar"] .member-photo-frame img {
-  object-position: center 30%;
+  object-position: 40% 45% !important;
+}
+
+.memberCardWrapper[data-name="Raj Nandini Kumari"] .member-photo-frame img {
+  object-position: 40% 22% !important;
+}
+
+.memberCardWrapper[data-name="Saba Moin"] .member-photo-frame img {
+  object-position: 68% 24% !important;
+}
+
+.memberCardWrapper[data-name="Saniya Pravin"] .member-photo-frame img {
+  object-position: 35% 48% !important;
+}
+
+.memberCardWrapper[data-name="Shrest Kumar Gupta"] .member-photo-frame img {
+  object-position: center 22% !important;
+}
+
+.memberCardWrapper[data-name="Shreya Kumari"] .member-photo-frame img {
+  object-position: center 12% !important;
+}
+
+.memberCardWrapper[data-name="Soumya Shah"] .member-photo-frame img {
+  object-position: center 25% !important;
+}
+
+.memberCardWrapper[data-name="Tannu Kumari"] .member-photo-frame img {
+  object-position: center 25% !important;
+}
+
+.memberCardWrapper[data-name="Nikita Kumari"] .member-photo-frame img {
+  object-position: 75% 22% !important;
 }
 
 .member-solid-card:hover .member-photo-frame img {
@@ -554,6 +618,208 @@
     min-height: 460px;
   }
   .member-photo-frame {
-    height: 210px;
+    height: 230px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   5. Interactive Member Expanded Detail Modal
+   -------------------------------------------------------------------------- */
+.member-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(4, 7, 13, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, backdrop-filter 0.35s ease;
+}
+
+.member-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.member-modal-card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 920px;
+  max-height: 90vh;
+  background: rgba(14, 18, 30, 0.95);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 210, 255, 0.2);
+  border-radius: 28px;
+  overflow: hidden;
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.member-modal-backdrop.active .member-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+[data-theme="light"] .member-modal-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(2, 132, 199, 0.35);
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.25);
+  color: #0f172a;
+}
+
+.member-modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 20;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border-active);
+  background: rgba(10, 14, 24, 0.7);
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s, transform 0.25s, color 0.25s;
+}
+
+.member-modal-close-btn:hover {
+  background: var(--accent-cyan);
+  color: #000;
+  transform: rotate(90deg);
+}
+
+/* Left Column: Big Photo */
+.member-modal-photo-wrap {
+  flex: 0 0 44%;
+  max-width: 44%;
+  background: radial-gradient(circle at center, rgba(0, 210, 255, 0.08), rgba(0, 0, 0, 0.6));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  min-height: 460px;
+}
+
+.member-modal-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  max-height: 540px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Right Column: Member Details */
+.member-modal-info {
+  flex: 1;
+  padding: 44px 36px 40px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.modal-badge-row {
+  margin-bottom: 14px;
+  padding-right: 48px;
+}
+
+.modal-member-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.modal-quote-box {
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 26px;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent-cyan);
+}
+
+.modal-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 22px;
+}
+
+.modal-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+[data-theme="light"] .modal-spec-item {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.modal-spec-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-cyan);
+}
+
+.modal-spec-val {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Responsive Modal Behavior */
+@media (max-width: 768px) {
+  .member-modal-card {
+    flex-direction: column;
+    max-height: 85vh;
+    border-radius: 20px;
+    overflow-y: auto;
+  }
+  .member-modal-photo-wrap {
+    flex: none;
+    max-width: 100%;
+    height: 280px;
+    min-height: auto;
+  }
+  .member-modal-photo-wrap img {
+    height: 100%;
+    max-height: 280px;
+  }
+  .member-modal-info {
+    padding: 24px 20px 28px;
+  }
+  .modal-member-name {
+    font-size: 1.8rem;
+  }
+  .modal-specs-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+

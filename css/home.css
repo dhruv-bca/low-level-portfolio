@@ -464,7 +464,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 38%;
   transform-origin: 90% 90%;
   clip-path: circle(2.5rem at 82% 82%);
   filter: brightness(1.5);

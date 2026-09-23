@@ -464,3 +464,104 @@ textarea.form-input {
     width: 100%;
   }
 }
+
+/* --------------------------------------------------------------------------
+   5. Campus Geolocation & Google Maps Section
+   -------------------------------------------------------------------------- */
+.campus-map-section {
+  padding: 40px 0 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.map-card-container {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  padding: 36px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.map-header {
+  text-align: left;
+}
+
+.map-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.map-header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.map-iframe-wrapper {
+  width: 100%;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background: #000;
+}
+
+.map-iframe-wrapper iframe {
+  display: block;
+  width: 100%;
+  min-height: 400px;
+}
+
+.map-action-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-open-maps {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-sm);
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.15), rgba(2, 132, 199, 0.25));
+  border: 1px solid var(--accent-cyan);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 15px var(--accent-cyan-glow);
+}
+
+.btn-open-maps:hover {
+  background: var(--accent-cyan);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 210, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .map-card-container {
+    padding: 20px;
+  }
+  .map-iframe-wrapper iframe {
+    min-height: 300px;
+  }
+  .map-action-row {
+    justify-content: stretch;
+  }
+  .btn-open-maps {
+    width: 100%;
+    justify-content: center;
+  }
+}
